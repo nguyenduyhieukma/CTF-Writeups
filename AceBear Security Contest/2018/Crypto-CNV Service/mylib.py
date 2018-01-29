@@ -3,11 +3,6 @@ import socket
 import re
 
 ######################################
-# MD5 hash wrapper function
-######################################
-def hash(s): return md5(s).digest()
-
-######################################
 # Socket wrapper functions
 ######################################
 def setup(host,port):
@@ -27,11 +22,11 @@ def recv(silent=True):
 	msg = _sock.recv(4096)
 	if not silent: print msg
 	return msg
-def recvUntil(pattern, silent = True):
+def recvUntil(pattern, silent=True):
 	while True:
 		l = re.findall(pattern, recv(silent))
 		if l: return l
-		
+
 ######################################
 # Reused functions from the challenge
 ######################################
@@ -44,3 +39,8 @@ def xor(dest, src):
         return ''.join(chr(ord(dest[i])^ord(src[i])) for i in range(len(src)))
     else:
         return ''.join(chr(ord(dest[i])^ord(src[i])) for i in range(len(dest)))
+        
+######################################
+# MD5 hash wrapper function
+######################################
+def hash(s): return md5(s).digest()
