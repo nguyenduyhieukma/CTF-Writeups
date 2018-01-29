@@ -15,7 +15,11 @@ Sơ đồ mã hóa:
 
 #### Ý tưởng giải quyết
 
+<<<<<<< HEAD
 Đây là dạng bài về mã khối hết sức quen thuộc. Những người chơi có kinh nghiệm biết chắc hướng đi sẽ là gán ghép các khối bản mã thu được từ 2 cookie hợp lệ (`"root" not in username`) thành một bản mã của cookie có thể vượt qua các kiểm tra phía server. Việc gán ghép đối với các khối bản mã trong chế độ CBC sẽ cho hiệu ứng tại vị trí gán ghép như sau:  
+=======
+Đây là dạng bài về mã khối hết sức quen thuộc. Những người chơi có kinh nghiệm biết chắc hướng đi sẽ là gán ghép các khối bản mã thu được từ 2 cookie hợp lệ (`"root" not in username`) thành một bản mã của cookie có thể vượt qua các kiểm tra phía server. Việc gán ghép đối với các khối bản mã trong chế độ CBC sẽ cho hiệu ứng tại vị trí gán ghép như sau:
+>>>>>>> 6ad0505653bb83f75e1c80b5ef06bd0f776534a6
 
 ![Ciphertext merging effect](./imgs/Ciphertext_merging_effect.png)  
 
@@ -35,7 +39,11 @@ Việc tính `y1` từ `zj` có vẻ không khả thi bởi ta phải tìm ánh 
 ```
 zj = E(undefinedBlock XOR hash(y1))
 ```
+<<<<<<< HEAD
 Lựa chọn này có vẻ khả thi hơn bởi ta không cần phải thực hiện `unhash`. Mặt khác, việc mã hóa có thể lợi dụng server để thực hiện. Nếu để ý đề bài, ta có `iv = pad(name) XOR hash(__HIDDEN__)`. Như vậy, ta hoàn toàn có thể kiếm soát được dữ liệu đầu vào bộ mã hóa `E` thông qua giá trị `name`.  
+=======
+Lựa chọn này có vẻ khả thi hơn bởi ta không cần phải thực hiện `unhash`. Mặt khác, việc mã hóa có thể lợi dụng server để thực hiện. Nếu để ý đề bài, ta có `iv = pad(name) XOR hash(__HIDDEN__)`. Như vậy, ta hoàn toàn có thể kiếm soát được giá trị đầu vào bộ mã hóa `E` thông qua giá trị `name`.  
+>>>>>>> 6ad0505653bb83f75e1c80b5ef06bd0f776534a6
 
 ![Control position](./imgs/Control_position.png)  
 
@@ -44,6 +52,7 @@ Lựa chọn này có vẻ khả thi hơn bởi ta không cần phải thực hi
 2. Nhận về `iv1`, `y1`, `y2`,... Trong đó `iv1 = name1 XOR sec` với `sec = hash(__HIDDEN__)`. Suy ra `sec = iv1 XOR name1`.  
 
 ![1st encryption](./imgs/1st_encryption.png)  
+<<<<<<< HEAD
 
 3. Chọn `undefinedBlock = "root*" + 'a'*11`. Sau đó tính `input2 = undefinedBlock XOR hash(y1)`, mục đích là để `E(input2) = E(undefinedBlock XOR hash(y1)) = zj`. Tiếp tục tính giá trị `name2` để có được `input` như trên:  
 Ta có: `input2 = iv2 XOR fixedStr = (name2 XOR sec) XOR fixedStr`, cho nên `name2 = input2 XOR sec XOR fixedStr` với `fixedStr = "CNVService*user="`. Giá trị `username2` có thể tùy ý: `username2 = 'a'*16`.
@@ -52,13 +61,23 @@ Ta có: `input2 = iv2 XOR fixedStr = (name2 XOR sec) XOR fixedStr`, cho nên `na
 ![2nd encryption](./imgs/2nd_encryption.png)  
 
 5. Gửi `iv1`, `y1`, `zj`, `z[j+1]`... lên server. Cookie sau giải mã sẽ có dạng: `CNVService*user=` `root*aaaaaaaaaaa` `aaaaaaaaaaaaaaaa` `*Mon Jan 29 17:5` ...
+=======
+  
+3. Chọn `undefinedBlock = "root*" + 'a'*11`. Sau đó tính `input2 = undefinedBlock XOR hash(y1)`, mục đích là để `E(input2) = E(undefinedBlock XOR hash(y1)) = zj`. Tiếp tục tính giá trị `name2` để có được `input2` như trên:  
+Ta có: `input2 = iv2 XOR fixedStr = (name2 XOR sec) XOR fixedStr`, cho nên `name2 = input2 XOR sec XOR fixedStr` với `fixedStr = "CNVService*user="`. Giá trị `username2` có thể tùy ý: `username2 = 'a'*16`
+4. Gửi lên server các chuỗi `name2`, `username2`. Nếu các tính toán là đúng, ta sẽ nhận về `iv2`, `zj`, `z[j+1]`...  
+
+![2nd encryption](./imgs/2nd_encryption.png)  
+
+5. Gửi `iv1`, `y1`, `zj`, `z[j+1]`... lên server.  
+>>>>>>> 6ad0505653bb83f75e1c80b5ef06bd0f776534a6
 
 ![decryption](./imgs/decryption.png)  
 
 
 #### Thực hiện
 
-**_B1:_** Khởi tạo các hằng số và kết nối đến server.
+**_B1:_** Khởi tạo các hằng số và kết nối đến server (thư viện _mylib.py_ có thể tìm thấy ở phần phụ lục).
 
 
 ```python
@@ -141,8 +160,12 @@ recvUntil('AceBear{.*}', silent=False)[0]
     Time register: When God was born!
     ***************************Root Servive***************************
     This is flag: AceBear{AES_CNV_is_s3cure_but_CNV_S3rvic3_i5_not_s3cure}
+<<<<<<< HEAD
 
 
+=======
+    
+>>>>>>> 6ad0505653bb83f75e1c80b5ef06bd0f776534a6
 #### Phụ lục
 Đề bài: [CNVService.rar](./CNVService.rar)  
 Thư viện: [mylib.py](./mylib.py)  
