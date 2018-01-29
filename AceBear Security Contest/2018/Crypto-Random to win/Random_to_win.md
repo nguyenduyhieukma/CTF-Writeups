@@ -1,6 +1,6 @@
 
 ## Writeups for _Acebear Security Contest 1/2018_
-### I. (Crypto challenge) _Random to win_
+### (Crypto challenge) _Random to win_
 #### Tóm tắt đề bài
 Cho dịch vụ tại _random2win.acebear.site:33337_ gồm 2 lựa chọn như sau:
 - _Test_:
@@ -124,5 +124,5 @@ print flag
     AceBear{r4nd0m_is_fun_in_my_g4m3}
     
 #### Phụ lục
-[Đề bài](./random2win.tar.gz)
+[Đề bài](./random2win.tar.gz)  
 [mylib.py](./mylib.py)
