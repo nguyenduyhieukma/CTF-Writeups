@@ -49,8 +49,8 @@ print 'c2 = {}'.format(c2)
 
     m1 = 10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     m2 = 0
-    c1 = 1406983179900595385557019043571200658593221316723467575385440209969361576788258556848199116579383488438389695494221175253
-    c2 = 2053166432393126371631344648660269043404576221396174475013378919060231677937183357398459728832478957505759781250473282058
+    c1 = 309712032520002825110275326531818518716043951622854108685926951293705650894040448869625011828106953394701834734195763989
+    c2 = 955895285012533811184600931620886903527398856295561008313865660384575752042965249419885624081202422462071920490447870794
     
 
 **_B3:_** Tính `d = (m1-m2)-(c1-c2)`. Biết `d` chia hết cho `p`, suy ra `p`. Với cách chọn `m1`, `m2` như trên, nếu để ý, ta sẽ thấy tỉ số `d/p < 11`
@@ -74,26 +74,32 @@ print 'Số chữ số thập phân của p: {}'.format(len(str(p)))
     Số chữ số thập phân của p: 121
     
 
-**_B4:_** Tính danh sách `l1` gồm các giá trị có thể nhận của `h`. Tương tự, thực hiện một kết nối khác đến server và tính danh sách `l2`. Đối chiếu `l1, l2` suy ra `h`. (Do `222221 << p` nên xác suất `l1, l2` có các phần tử ngẫu nhiên trùng nhau là rất thấp.)
+**_B4:_** Tính danh sách `l1` gồm các giá trị có thể nhận của `h`. Thực hiện một kết nối khác đến server và tương tự tính danh sách `l2`, lấy tập giao gán lại cho `l1`: `l1 = l1 & l2` và lặp lại cho đến khi kích thước `l1 = 1`.
 
 
 ```python
 l1 = [((c1-m1) * inverse(i,p)) % p for i in range(1,222222)] #Dùng cặp c2, m2 cũng cho kết quả tương tự
 
-connect()
-send('1\n')
-recv() #đồng bộ với server
-send(long_to_bytes(m1))
-c1 = int(recvUntil('[0-9]{2,}')[0])
-l2 = [((c1-m1) * inverse(i,p)) % p for i in range(1,222222)]
+while True:
+    connect()
+    send('1\n')
+    recv() #đồng bộ với server
+    send(long_to_bytes(m1))
+    c1 = int(recvUntil('[0-9]{2,}')[0])
+    l2 = [((c1-m1) * inverse(i,p)) % p for i in range(1,222222)]
+    l1 = list(set(l1) & set(l2))
+    print 'Kích cỡ tập giao: {}'.format(len(l1))
+    if len(l1) == 1:
+        h = l1[0]
+        break
 
-l = list(set(l1) & set(l2))
-print 'Kích cỡ tập giao của 2 danh sách: {}'.format(len(l))
-h = l[0]
 print 'h = {}'.format(h)
 ```
 
-    Kích cỡ tập giao của 2 danh sách: 1
+    Kích cỡ tập giao: 2
+    Kích cỡ tập giao: 2
+    Kích cỡ tập giao: 2
+    Kích cỡ tập giao: 1
     h = 11305546770736405378819894875529407145124231011999396912086973074056791191623579252993880901245430834195596982773094
     
 
@@ -119,10 +125,11 @@ flag = recvUntil('AceBear{.*}')[0]
 print flag
 ```
 
-    kmin = 53096; kmax = 5309670
-    k = 2235130; m = 519912737433
+    kmin = 53097; kmax = 5309670
+    k = 1726857; m = 698100304859
     AceBear{r4nd0m_is_fun_in_my_g4m3}
     
 #### Phụ lục
-[Đề bài](./random2win.tar.gz)  
-[mylib.py](./mylib.py)
+Đề bài: [random2win.tar.gz](./random2win.tar.gz)  
+Thư viện: [mylib.py](./mylib.py)  
+Just run and get flag (python version): [Random_to_win.py](./Random_to_win.py)
