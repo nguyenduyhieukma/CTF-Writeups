@@ -1,5 +1,5 @@
 
-## Writeups for _Acebear Security Contest 1/2018_
+## Writeup for _Acebear Security Contest 1/2018_
 ### (Crypto challenge) _Random to win_
 #### Tóm tắt đề bài
 Cho dịch vụ tại _random2win.acebear.site:33337_ gồm 2 lựa chọn như sau:
