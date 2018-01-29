@@ -45,7 +45,7 @@ Lựa chọn này có vẻ khả thi hơn bởi ta không cần phải thực hi
 
 ![1st encryption](./imgs/1st_encryption.png)  
   
-3. Chọn `undefinedBlock = "root*" + 'a'*11`. Sau đó tính `input2 = undefinedBlock XOR hash(y1)`, mục đích là để `E(input2) = E(undefinedBlock XOR hash(y1)) = zj`. Tiếp tục tính giá trị `name2` để có được `input` như trên:  
+3. Chọn `undefinedBlock = "root*" + 'a'*11`. Sau đó tính `input2 = undefinedBlock XOR hash(y1)`, mục đích là để `E(input2) = E(undefinedBlock XOR hash(y1)) = zj`. Tiếp tục tính giá trị `name2` để có được `input2` như trên:  
 Ta có: `input2 = iv2 XOR fixedStr = (name2 XOR sec) XOR fixedStr`, cho nên `name2 = input2 XOR sec XOR fixedStr` với `fixedStr = "CNVService*user="`. Giá trị `username2` có thể tùy ý: `username2 = 'a'*16`
 4. Gửi lên server các chuỗi `name2`, `username2`. Nếu các tính toán là đúng, ta sẽ nhận về `iv2`, `zj`, `z[j+1]`...  
 
@@ -58,7 +58,7 @@ Ta có: `input2 = iv2 XOR fixedStr = (name2 XOR sec) XOR fixedStr`, cho nên `na
 
 #### Thực hiện
 
-**_B1:_** Khởi tạo các hằng số và kết nối đến server.
+**_B1:_** Khởi tạo các hằng số và kết nối đến server (thư viện _mylib.py_ có thể tìm thấy ở phần phụ lục).
 
 
 ```python
@@ -145,4 +145,4 @@ recvUntil('AceBear{.*}', silent=False)[0]
 #### Phụ lục
 Đề bài: [CNVService.rar](./CNVService.rar)  
 Thư viện: [mylib.py](./mylib.py)  
-Just run and get flag (python version): [CNV_Service_solution.py](CNV_Service_solution.py)
+Just run and get flag (python version): [CNV_Service_solution.py](./CNV_Service_solution.py)
