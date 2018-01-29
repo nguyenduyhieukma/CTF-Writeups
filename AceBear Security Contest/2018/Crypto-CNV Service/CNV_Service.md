@@ -10,19 +10,22 @@ Cho dịch vụ tại _cnvservice.acebear.site:1337_ gồm 2 lựa chọn như s
   + Trường thứ hai là `user=root`
   
 Sơ đồ mã hóa:  
+
 ![Operation mode](./imgs/Operation_mode.png)  
 
 #### Ý tưởng giải quyết
 
-Đây là dạng bài về mã khối hết sức quen thuộc. Những người chơi có kinh nghiệm biết chắc hướng đi sẽ là gán ghép các khối bản mã thu được từ 2 cookie hợp lệ (`"root" not in username`) thành một bản mã của cookie có thể vượt qua các kiểm tra phía server. Việc gán ghép đối với các khối bản mã trong chế độ CBC sẽ cho hiệu ứng tại vị trí gán ghép như sau:  
+Đây là dạng bài về mã khối hết sức quen thuộc. Những người chơi có kinh nghiệm biết chắc hướng đi sẽ là gán ghép các khối bản mã thu được từ 2 cookie hợp lệ (`"root" not in username`) thành một bản mã của cookie có thể vượt qua các kiểm tra phía server. Việc gán ghép đối với các khối bản mã trong chế độ CBC sẽ cho hiệu ứng tại vị trí gán ghép như sau:
+
 ![Ciphertext merging effect](./imgs/Ciphertext_merging_effect.png)  
 
 Ta sẽ gài khối mã không xác định này vào vị trí chứa `username`. Để ý thấy độ dài chuỗi `"CNVService*user="` vừa bằng kích thước một khối (16), như vậy `undefinedBlock` sẽ rơi vào vị trí số 2. Nhiệm vụ còn lại là lựa chọn các giá trị đầu vào phù hợp sao cho phía server giải mã `undefinedBlock` thành `root*...`
 
 
 #### Tính toán các số liệu
-Tình huống hiện tại:  
-![Context](./imgs/context.png)  
+Tình huống hiện tại:
+
+![Context](./imgs/Context.png)  
 
 Ta có `undefinedBlock = hash(y1) XOR D(zj)`. Nếu rút `y1` theo `zj`, ta được:
 ```
@@ -33,19 +36,23 @@ Việc tính `y1` từ `zj` có vẻ không khả thi bởi ta phải tìm ánh 
 zj = E(undefinedBlock XOR hash(y1))
 ```
 Lựa chọn này có vẻ khả thi hơn bởi ta không cần phải thực hiện `unhash`. Mặt khác, việc mã hóa có thể lợi dụng server để thực hiện. Nếu để ý đề bài, ta có `iv = pad(name) XOR hash(__HIDDEN__)`. Như vậy, ta hoàn toàn có thể kiếm soát được giá trị đầu vào bộ mã hóa `E` thông qua giá trị `name`.  
+
 ![Control position](./imgs/Control_position.png)  
 
 Định hướng thực hiện như sau:
 1. Gửi bất kì 2 giá trị `name1` và `username1` lên server, chẳng hạn: `name1 = username1 = 'a'*16`. Có thể gửi ngắn hơn `BLOCK_SIZE` nhưng cần chú ý đến hiệu ứng padding cho `name1`.
 2. Nhận về `iv1`, `y1`, `y2`,... Trong đó `iv1 = name1 XOR sec` với `sec = hash(__HIDDEN__)`. Suy ra `sec = iv1 XOR name1`.  
+
 ![1st encryption](./imgs/1st_encryption.png)  
   
 3. Chọn `undefinedBlock = "root*" + 'a'*11`. Sau đó tính `input2 = undefinedBlock XOR hash(y1)`, mục đích là để `E(input2) = E(undefinedBlock XOR hash(y1)) = zj`. Tiếp tục tính giá trị `name2` để có được `input` như trên:  
 Ta có: `input2 = iv2 XOR fixedStr = (name2 XOR sec) XOR fixedStr`, cho nên `name2 = input2 XOR sec XOR fixedStr` với `fixedStr = "CNVService*user="`. Giá trị `username2` có thể tùy ý: `username2 = 'a'*16`
 4. Gửi lên server các chuỗi `name2`, `username2`. Nếu các tính toán là đúng, ta sẽ nhận về `iv2`, `zj`, `z[j+1]`...  
+
 ![2nd encryption](./imgs/2nd_encryption.png)  
 
-5. Gửi `iv1`, `y1`, `zj`, `z[j+1]`... lên server. .  
+5. Gửi `iv1`, `y1`, `zj`, `z[j+1]`... lên server.  
+
 ![decryption](./imgs/decryption.png)  
 
 
@@ -135,17 +142,7 @@ recvUntil('AceBear{.*}', silent=False)[0]
     ***************************Root Servive***************************
     This is flag: AceBear{AES_CNV_is_s3cure_but_CNV_S3rvic3_i5_not_s3cure}
     
-    
-
-
-
-
-    'AceBear{AES_CNV_is_s3cure_but_CNV_S3rvic3_i5_not_s3cure}'
-
-
-
 #### Phụ lục
 Đề bài: [CNVService.rar](./CNVService.rar)  
 Thư viện: [mylib.py](./mylib.py)  
 Just run and get flag (python version): [CNV_Service_solution.py](CNV_Service_solution.py)
-
