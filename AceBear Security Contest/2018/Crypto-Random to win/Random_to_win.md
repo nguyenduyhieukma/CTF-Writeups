@@ -34,9 +34,9 @@ m1 = 10 ** 121
 m2 = 0
 
 send('1\n')
-recv() #đồng bộ với server
+recv() #synchronizing
 send(long_to_bytes(m1))
-c1 = int(recvUntil('[0-9]{2,}')[0]) #tìm số có ít nhất 2 chữ số thập phân trong dữ liệu nhận về
+c1 = int(recvUntil('[0-9]{2,}')[0]) #find at least 2-digit decimal number
 send(long_to_bytes(m2))
 c2 = int(recvUntil('[0-9]{2,}')[0])
 
@@ -51,7 +51,7 @@ print 'c2 = {}'.format(c2)
     m2 = 0
     c1 = 309712032520002825110275326531818518716043951622854108685926951293705650894040448869625011828106953394701834734195763989
     c2 = 955895285012533811184600931620886903527398856295561008313865660384575752042965249419885624081202422462071920490447870794
-    
+
 
 **_B3:_** Tính `d = (m1-m2) - (c1-c2)`. Biết `d` chia hết cho `p`, suy ra `p`. Với cách chọn `m1`, `m2` như trên, nếu để ý, ta sẽ thấy tỉ số `d/p < 11`
 
@@ -72,18 +72,18 @@ print 'Số chữ số thập phân của p: {}'.format(len(str(p)))
     Số chữ số thập phân của d: 122
     p = 2129236650498506197214865121017813676962270980934541379925587741818174020229784960110052122450619093813474017151250421361
     Số chữ số thập phân của p: 121
-    
+
 
 **_B4:_** Tính danh sách `l1` gồm các giá trị có thể nhận của `h`. Thực hiện một kết nối khác đến server và tương tự tính danh sách `l2`, lấy tập giao gán lại cho `l1`: `l1 = l1 & l2` và lặp lại cho đến khi kích thước `l1 = 1`.
 
 
 ```python
-l1 = [((c1-m1) * inverse(i,p)) % p for i in range(1,222222)] #Dùng cặp c2, m2 cũng cho kết quả tương tự
+l1 = [((c1-m1) * inverse(i,p)) % p for i in range(1,222222)] #using (c2, m2) yields the same result
 
 while True:
     connect()
     send('1\n')
-    recv() #đồng bộ với server
+    recv()
     send(long_to_bytes(m1))
     c1 = int(recvUntil('[0-9]{2,}')[0])
     l2 = [((c1-m1) * inverse(i,p)) % p for i in range(1,222222)]
@@ -101,7 +101,7 @@ print 'h = {}'.format(h)
     Kích cỡ tập giao: 2
     Kích cỡ tập giao: 1
     h = 11305546770736405378819894875529407145124231011999396912086973074056791191623579252993880901245430834195596982773094
-    
+
 
 **_B5:_** Kết nối đến server và chọn mục _Test_ để nhận `c`. Vét cạn `k` trong công thức `c + k*p = m (mod h)` cho đến khi được `10^10 < m < 10^12`. Cũng cần chú ý rằng, vì `m < 10^12 << h` nên xác suất `m` ngẫu nhiên nhỏ hơn `10^12` là rất thấp. Cũng có thể giới hạn `k` thông qua công thức `m + r*h = c + k*p`.
 
@@ -119,7 +119,7 @@ for k in range(kmin, kmax+1):
     m = (c + k*p) % h
     if m < 10**12: break
 print 'k = {}; m = {}'.format(k,m)
-        
+
 send(str(m))
 flag = recvUntil('AceBear{.*}')[0]
 print flag
@@ -128,7 +128,7 @@ print flag
     kmin = 53097; kmax = 5309670
     k = 1726857; m = 698100304859
     AceBear{r4nd0m_is_fun_in_my_g4m3}
-    
+
 #### Phụ lục
 Đề bài: [random2win.tar.gz](./random2win.tar.gz)  
 Thư viện: [mylib.py](./mylib.py)  
