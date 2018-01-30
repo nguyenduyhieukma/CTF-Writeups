@@ -66,7 +66,7 @@ from mylib import *
 setup("cnvservice.acebear.site", 1337)
 
 fixedStr = "CNVService*user="
-undefinedBlock = "root*When God wa" # <- Why not use meaningful words?
+undefinedBlock = "root*When God wa" # <- meaningful words instead of aaaaaa...
 
 connect()
 ```
@@ -84,7 +84,7 @@ send(name1)
 recvUntil('Username:')
 send(username1)
 
-data = recvUntil('[0-9A-Za-z/+=]{20,}')[0].decode('base64') # receive data in base64-encode
+data = recvUntil('[0-9A-Za-z/+=]{20,}')[0].decode('base64') # receive data in base64-encoding form
 iv1 = data[0:16]
 y1 = data[16:32]
 ```
