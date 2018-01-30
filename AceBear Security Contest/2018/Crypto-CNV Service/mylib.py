@@ -16,7 +16,7 @@ def connect():
     disconnect()
     _sock = socket.socket()
     _sock.connect((_host,_port))
-    _sock.settimeout(1)
+    _sock.settimeout(2)
 def send(s): _sock.send(s)
 def recv(silent=True):
 	msg = _sock.recv(4096)
