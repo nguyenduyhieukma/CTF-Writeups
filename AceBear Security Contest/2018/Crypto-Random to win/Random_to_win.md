@@ -34,7 +34,7 @@ m1 = 10 ** 121
 m2 = 0
 
 send('1\n')
-recv() #synchronizing
+recvUntil('Message:') #synchronizing
 send(long_to_bytes(m1))
 c1 = int(recvUntil('[0-9]{2,}')[0]) #find at least 2-digit decimal number
 send(long_to_bytes(m2))
@@ -83,7 +83,7 @@ l1 = [((c1-m1) * inverse(i,p)) % p for i in range(1,222222)] #using (c2, m2) yie
 while True:
     connect()
     send('1\n')
-    recv()
+    recvUntil('Message:')
     send(long_to_bytes(m1))
     c1 = int(recvUntil('[0-9]{2,}')[0])
     l2 = [((c1-m1) * inverse(i,p)) % p for i in range(1,222222)]

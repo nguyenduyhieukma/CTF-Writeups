@@ -79,9 +79,9 @@ name1 = "The GOD's father"
 username1 = "This is useless!"
 
 send('1\n')
-recv() # synchronizing
+recvUntil('Name:') # synchronizing
 send(name1)
-recv()
+recvUntil('Username:')
 send(username1)
 
 data = recvUntil('[0-9A-Za-z/+=]{20,}')[0].decode('base64') # receive data in base64-encode
@@ -101,7 +101,7 @@ name2 = xor(xor(input2, sec), fixedStr)
 # the attack will failed and you should rerun the whole script.
 if (len(name2.strip()) < 16):
     print 'Failed to get flag!'
-    exit()
+    quit()
 
 username2 = "s born!"
 
@@ -115,9 +115,9 @@ username2 = "s born!"
 
 ```python
 send('1\n')
-recv() # synchronizing
+recvUntil('Name:') # synchronizing
 send(name2)
-recv()
+recvUntil('Username:')
 send(username2)
 
 data = recvUntil('[0-9A-Za-z/+=]{20,}')[0].decode('base64') # receive data in base64-encode

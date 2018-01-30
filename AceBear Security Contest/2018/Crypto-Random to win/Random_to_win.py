@@ -9,11 +9,11 @@
 # Người dùng gửi lên một thông điệp, thông điệp này được ánh xạ thành số nguyên `m`. Server sau đó trả về giá trị `c = (m + r*h) % p` với `h`,`p` là 2 thông số cố định, `r` là số nguyên ngẫu nhiên trong khoảng `(0, 222222)` có giá trị trong một phiên kết nối. Độ dài của `p` là 121 chữ số thập phân. Người dùng được phép _test_ 2 lần.
 # - _Submit_:
 # Server trả về giá trị `c = (m + r*h) % p`. Lần này, `m` và `r` là 2 số nguyên ngẫu nhiên trong khoảng `(10^10, 10^12)`. Nếu người dùng đoán được `m`, trả về _**FLAG**_
-# 
+#
 # #### Ý tưởng giải quyết
-# 
-# - Từ `c1 = (m1 + r*h) % p` và `c2 = (m2 + r*h) % p`, dễ dàng suy ra `(m1-m2)-(c1-c2)` chia hết `p`. Như vậy, nếu ta chọn `m1, m2` sao cho `m1-m2` đủ lớn, tránh trường hợp `(m1-m2)-(c1-c2) = 0`, từ đó có thể tìm được `p`.  
-# - Sau khi có `p`, tính `h` theo công thức: `h = (c1-m1)*inverse(r) (mod p)`. Tuy `r` ngẫu nhiên nhưng khoảng giá trị bé (222221 khả năng) nên ta có thể vét cạn để được một danh sách gồm 222221 giá trị `h` có thể nhận. Tiếp tục với phiên làm việc khác cho ta một danh sách khác mà ta có thể dùng để đối chiếu tìm `h`.  
+#
+# - Từ `c1 = (m1 + r*h) % p` và `c2 = (m2 + r*h) % p`, dễ dàng suy ra `(m1-m2)-(c1-c2)` chia hết `p`. Như vậy, nếu ta chọn `m1, m2` sao cho `m1-m2` đủ lớn, tránh trường hợp `(m1-m2)-(c1-c2) = 0`, từ đó có thể tìm được `p`.
+# - Sau khi có `p`, tính `h` theo công thức: `h = (c1-m1)*inverse(r) (mod p)`. Tuy `r` ngẫu nhiên nhưng khoảng giá trị bé (222221 khả năng) nên ta có thể vét cạn để được một danh sách gồm 222221 giá trị `h` có thể nhận. Tiếp tục với phiên làm việc khác cho ta một danh sách khác mà ta có thể dùng để đối chiếu tìm `h`.
 # - Vấn đề cuối cùng là tìm `m` thỏa `m+r*h=c (mod p)` với `h`, `c`, `p` đã biết khi tiến hành _submit_. Do khoảng giá trị của `m`, `r` là tương đối lớn (gần `10^12` trường hợp) nên việc vét cạn là không khả thi. Để ý biến đổi phương trình trên một chút, ta được: `m+r*h=c+k*p` hay `c+k*p=m (mod h)`.Trong trường hợp này, vét cạn `k` để tìm `m` thỏa `10^10 < m < 10^12` sẽ dễ dàng hơn.
 # 
 # #### Thực hiện
@@ -28,7 +28,7 @@ setup('random2win.acebear.site', 33337)
 connect()
 
 
-# **_B2:_** Chọn `m1=10^121`, `m2=0`. Gửi các giá trị lên server và nhận về `c1`, `c2` tương ứng.  
+# **_B2:_** Chọn `m1=10^121`, `m2=0`. Gửi các giá trị lên server và nhận về `c1`, `c2` tương ứng.
 # (Do `0 <= c1,c2 < p` nên `-p < (c1-c2) < p`, điều này đảm bảo `(m1-m2)-(c1-c2) > 10^121-p > 0`.)
 
 # In[2]:
@@ -38,7 +38,7 @@ m1 = 10 ** 121
 m2 = 0
 
 send('1\n')
-recv() #đồng bộ với server
+recvUntil('Message:') #đồng bộ với server
 send(long_to_bytes(m1))
 c1 = int(recvUntil('[0-9]{2,}')[0]) #tìm số có ít nhất 2 chữ số thập phân trong dữ liệu nhận về
 send(long_to_bytes(m2))
@@ -76,7 +76,7 @@ l1 = [((c1-m1) * inverse(i,p)) % p for i in range(1,222222)] #Dùng cặp c2, m2
 while True:
     connect()
     send('1\n')
-    recv() #đồng bộ với server
+    recvUntil('Message:') #đồng bộ với server
     send(long_to_bytes(m1))
     c1 = int(recvUntil('[0-9]{2,}')[0])
     l2 = [((c1-m1) * inverse(i,p)) % p for i in range(1,222222)]
@@ -106,8 +106,7 @@ for k in range(kmin, kmax+1):
     m = (c + k*p) % h
     if m < 10**12: break
 print 'k = {}; m = {}'.format(k,m)
-        
+
 send(str(m))
 flag = recvUntil('AceBear{.*}')[0]
 print flag
-
