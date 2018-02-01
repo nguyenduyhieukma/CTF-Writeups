@@ -97,8 +97,8 @@ sec = xor(iv1, name1)
 input2 = xor(undefinedBlock, hash(y1))
 name2 = xor(xor(input2, sec), fixedStr)
 
-# In case name2 started or ended with [ \t\n\r\f\v],
-# the attack will failed and you should rerun the whole script.
+# In case name2 is started or ended with [ \t\n\r\f\v],
+# the attack will fail and you should rerun the whole script.
 if (len(name2.strip()) < 16):
     print 'Failed to get flag!'
     quit()
