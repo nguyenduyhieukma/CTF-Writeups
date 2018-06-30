@@ -65,13 +65,13 @@ def post_data(*ivvs): return post(make_data(*ivvs))
 #### Even-indexed bytes
 Let the first 4 bytes of an input data be `0, 0, x, 0` (Figure 1). If `x == k[0] XOR k[2]` then the corresponding decypted byte `x XOR k[2]` will be `k[0]`, same as the first one, and the decrypted string will be decoded into something which has `k[1] + k[3] + 2` letter `k[0]`'s at the beginning. Now, we have a chance to modify the first and third byte of the input data (`d[0]`, `d[2]`) without changing the decoded string. If `(d[1] XOR k[1]) + (d[3] XOR k[3]) == k[1] + k[3]`, things will be as expected.
 
-![input_process](imgs/data_processing.png) 
+![input_process](imgs/data_processing.png)  
 _Figure 1: The processing of an input with the first 4 bytes: `0, 0, x, 0`._
 
 Recall that `a XOR 1` is equal to `a + 1` or `a - 1`, depends on the least significant bit (LSB) of `a`, so `(k[1] XOR 1) + (k[3] XOR 1) == k[1] + k[3]` if the LSB's of `k[1]` and `k[3]` are different. In case the LSB's are equal, `(k[1] XOR 1) + k[3]` must be the same as `k[1] + (k[3] XOR 1)`. Therefore, if we could find an `x` such that:
 `post_data((0, 0, 0), (2, x, 0)) == post_data((0, 0, 1), (2, x, 1))` or `post_data((0, 0, 1), (2, x, 0)) == post_data((0, 0, 0), (2, x, 1))` then `x` must be equal to `k[0] XOR k[2]` (Figure 2) or, we would otherwise detect a SHA3-256 collision which seems impossible.
 
-![k0 xor k2 leak](imgs/k0_xor_k2_leak.png) 
+![k0 xor k2 leak](imgs/k0_xor_k2_leak.png)  
 _Figure 2: `k[0] XOR k[2]` leak._
 
 In a similar way, we could find out `k[2] XOR k[4]`, `k[4] XOR k[6]`, `k[6] XOR k[8]`,... if we want.
@@ -79,7 +79,7 @@ In a similar way, we could find out `k[2] XOR k[4]`, `k[4] XOR k[6]`, `k[6] XOR 
 #### Odd-indexed bytes
 Now, since `a XOR 2^i` is equal to `a + 2^i` or `a - 2^i`, depends on the i-th bit of `a`, it follows that `(a XOR 2^i) + (b XOR 2^i) == a XOR b` if and only if the two i-th bits of `a` and `b` are different. Using this fact, we could find out if the two i-th bits of `k[1]` and `k[3]` are equal or not for `i = 0,1,2,...,7` (Figure 3), then derive `k[1] XOR k[3]`.
 
-![k1 xor k3 leak](imgs/k1_xor_k3_leak.png) 
+![k1 xor k3 leak](imgs/k1_xor_k3_leak.png)  
 _Figure 3: `k[1] XOR k[3]` leak._
 
 Again, we could obtain `k[3] XOR k[5]`, `k[5] XOR k[7]`,... if we want.
@@ -265,10 +265,10 @@ We are able to learn more about the keystream. More specifically, we could check
 | 1            | 0                   | a - 1   | a - 1   | a + a                 |
 | 1            | 1                   | a - 3   | a - 1   | a + a - 4             |
 
-Figure 4 shows us a way to dertermine if the two 1-st and 0-th bits of `k[1]` are equal or not.
+Figure 5 shows us a way to dertermine if the two 1-st and 0-th bits of `k[1]` are equal or not.
 
 ![0th_bit_xor_1st_bit_leak](imgs/0th_bit_xor_1st_bit_leak.png)  
-_Figure 4: The XOR of the first 2 consecutive bits of `k[1]` leak._
+_Figure 5: The XOR of the first 2 consecutive bits of `k[1]` leak._
 
 Let's get those information from the server:
 
