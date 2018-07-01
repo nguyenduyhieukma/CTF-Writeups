@@ -198,7 +198,7 @@ sock.recv(4096)
 
 
 
-2. There are 2^32 different 32-bit blocks we can choose for `a[8]` and `a[9]`, so 2^32 out of 2^64 input blocks (under the use of a weak key) are solutions for us. Since the ratio is 1/2^32, if we try 2^32 times or more, we should be able to get one. 32-bit brute force is not a hard job nowadays and could be done in a few minutes if we have access to a powerful computer or many computers at the same time. However, if the challenge's author could somehow provide a 128-bit version of DES, this approach would not be suitable for a 48-hour CTF competition anymore.
+2. There are 2^32 different 32-bit blocks we can choose for `a[8]` and `a[9]`, so 2^32 out of 2^64 input blocks (under the use of a weak key) are solutions for us. Since the ratio is 1/2^32, if we try 2^32 times or more, we should be able to get one. 32-bit brute force is not a hard job nowadays and could be done in a few minutes if we have access to a powerful computer or many computers at a same time. However, if the challenge's author could somehow provide a 128-bit version of DES, this approach would not be suitable for a 48-hour CTF competition anymore.
 
 ## References
 NIST. (1999, October 25). _Data Encryption Standard (DES)_. Retrieved June 29, 2018, from https://csrc.nist.gov/csrc/media/publications/fips/46/3/archive/1999-10-25/documents/fips46-3.pdf
