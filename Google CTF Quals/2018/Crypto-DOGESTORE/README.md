@@ -82,7 +82,7 @@ In a similar way, we could find out `k[2] XOR k[4]`, `k[4] XOR k[6]`, `k[6] XOR 
 
 #### Odd-indexed bytes
 
-Now, since `a XOR 2^i` is equal to `a + 2^i` or `a - 2^i`, depends on the i-th bit of `a`, it follows that `(a XOR 2^i) + (b XOR 2^i) == a XOR b` if and only if the two i-th bits of `a` and `b` are different. Using this fact, we could find out if the two i-th bits of `k[1]` and `k[3]` are equal or not for `i = 0,1,2,...,7` (Figure 3), then derive `k[1] XOR k[3]`.
+Now, since `a XOR 2^i` is equal to `a + 2^i` or `a - 2^i`, depends on the i-th bit of `a`, it follows that `(a XOR 2^i) + (b XOR 2^i) == a + b` if and only if the two i-th bits of `a` and `b` are different. Using this fact, we could find out if the two i-th bits of `k[1]` and `k[3]` are equal or not for `i = 0,1,2,...,7` (Figure 3), then derive `k[1] XOR k[3]`.
 
 ![k1 xor k3 leak](imgs/k1_xor_k3_leak.png)  
 _Figure 3: `k[1] XOR k[3]` leak._
