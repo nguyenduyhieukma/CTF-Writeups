@@ -1,4 +1,4 @@
-## CodeBlue CTF 2018 (Qualification Round) Hints or Crypto challenges
+## CodeBlue CTF 2018 (Qualification Round) Hints for Crypto challenges
 -   Time: _July 29, 2018_
 -   Place: _Online_
 -   Website: _<https://score.ctf.codeblue.jp/>_

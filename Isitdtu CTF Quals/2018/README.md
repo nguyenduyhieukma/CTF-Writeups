@@ -1,4 +1,4 @@
-## Isitdtu CTF 2018 (Qualification Round) Hints or Crypto challenges
+## Isitdtu CTF 2018 (Qualification Round) Hints for Crypto challenges
 -   Time: _July 28, 2018_
 -   Place: _Online_
 -   Website: _<https://ctf.isitdtu.com/>_
