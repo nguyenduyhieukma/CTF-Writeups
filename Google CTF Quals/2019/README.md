@@ -7,4 +7,4 @@
 ## Challenges with write-up available:
 
 - **Crypto**:
-  - _[reality](reality/reality-solution.ipynb) (279 pts, 24 solves)_
+  - _[reality](https://nbviewer.jupyter.org/github/nguyenduyhieukma/CTF-Writeups/blob/master/Google%20CTF%20Quals/2019/reality/reality-solution.ipynb) (279 pts, 24 solves)_
