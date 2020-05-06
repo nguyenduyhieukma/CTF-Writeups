@@ -7,7 +7,7 @@
 ## Mình học Mật mã như thế nào?
 Mình theo học ngành An toàn thông tin tại Học viện Kĩ thuật Mật mã niên khóa 2014-2019 (khóa 11). Theo mình nghĩ, muốn học Mật mã thì phải có nền Toán và Khoa học Máy tính đủ vững. Toán là lý thuyết tiền đề, còn Khoa học Máy tính là nơi Mật mã được ứng dụng ra bên ngoài. Do đó, mình đã chủ động học chắc những môn này (chiếm phần lớn chương trình đào tạo trong 3 năm đầu tiên).
 
-Mình xin phép được liệt kê một vài khóa học/sách mở mà mình đã đọc/học qua để chắc thêm kiến thức ở trường (các bạn ấn vào liên kết để có thêm thông tin):
+Mình xin phép được liệt kê một vài khóa học/sách mở mà mình đã/đang đọc/học qua để chắc thêm kiến thức ở trường (các bạn ấn vào liên kết để có thêm thông tin):
 -   Toán
     -   Đại số tuyến tính
         -   https://ocw-origin.odl.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/
