@@ -29,4 +29,4 @@ Mình xin phép được liệt kê một vài khóa học/sách mở mà mình 
         -   https://lagunita.stanford.edu/courses/course-v1:Engineering+Algorithms1+SelfPaced/about
 -   Mật mã
     -   https://www.coursera.org/learn/crypto
-    -   http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.182.9999&rep=rep1&type=pdf
+    -   https://people.ucsc.edu/~morozco7/Books/hoffstein2014introduction.pdf
