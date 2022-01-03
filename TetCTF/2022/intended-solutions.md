@@ -35,7 +35,7 @@
 
 1. Find a relation between `x` and `alpha` in the following figure, we should
    have `x = sin(alpha/2) / sin(beta - alpha/2)` where `beta = arctan(2022)`.
-   ![](./algebra.png)
+   ![](algebra.png)
 2. Apply Euler's formula, we
    have `x = (E**(I*alpha/2) - E**(-I*alpha/2)) / (E**(I*(beta-alpha/2)) - E**(-I*(beta-alpha/2)))`, in
    which `I = sqrt(-1)` and `E` is the Euler number. Simplify the equation, we
