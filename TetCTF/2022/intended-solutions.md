@@ -3,7 +3,7 @@
 ## shares
 
 1. Keep requesting the shares until all padded elements can be eliminated from a returned set (the coefficients
-   associated with the padded elements together form a singular matrix, probability: 1/37), then we have one (maybe
+   associated with the padded elements together form a 16x16 singular matrix, probability: 1/37), then we have one (maybe
    more) linear combinations of the secret characters.
 2. Collect 16 independent combinations to recover the characters.
 
